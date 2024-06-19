@@ -5,5 +5,6 @@ namespace efCoreApp.Data {
         public string? OgrenciSoyad { get; set; }
         public string? Eposta { get; set; }
         public string? Telefon { get; set; }
+        public int? Not { get; set; }
     }
 }
