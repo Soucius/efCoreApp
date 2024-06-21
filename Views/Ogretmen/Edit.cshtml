@@ -1,28 +1,28 @@
-@model Ogrenci
+@model Ogretmen
 
 @{
-    ViewData["Title"] = "Ogrenci Guncelleme";
+    ViewData["Title"] = "Ogretmen Guncelleme";
 }
 
-<h2>Ogrenci Guncelleme</h2>
+<h2>Ogretmen Guncelleme</h2>
 
 <hr>
 
 <div class="row">
     <div class="col-8">
-        <form asp-controller="Ogrenci" asp-action="Create" method="post">
-            <input type="hidden" asp-for="OgrenciId">
+        <form asp-controller="Ogretmen" asp-action="Create" method="post">
+            <input type="hidden" asp-for="OgretmenId">
         
             <div class="mb-3">
-                <label asp-for="OgrenciAd" class="form-label">Ogrenci Adi</label>
+                <label asp-for="Ad" class="form-label">Ogretmen Adi</label>
         
-                <input asp-for="OgrenciAd" class="form-control">
+                <input asp-for="Ad" class="form-control">
             </div>
         
             <div class="mb-3">
-                <label asp-for="OgrenciSoyad" class="form-label">Ogrenci Soyadi</label>
+                <label asp-for="Soyad" class="form-label">Ogretmen Soyadi</label>
         
-                <input asp-for="OgrenciSoyad" class="form-control">
+                <input asp-for="Soyad" class="form-control">
             </div>
         
             <div class="mb-3">
@@ -47,8 +47,8 @@
         <hr>
 
         <ul>
-            @foreach (var item in @Model.KursKayitlari) {
-                <li>@item.Kurs.Baslik</li>
+            @foreach (var item in @Model.Kurslar) {
+                <li>@item.Ogretmen.Kurslar</li>
             }
         </ul>
     </div>

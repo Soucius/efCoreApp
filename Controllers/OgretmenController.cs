@@ -3,25 +3,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace efCoreApp.Controllers {
-    public class OgrenciController: Controller {
+    public class OgretmenController: Controller {
         private readonly DataContext _context;
 
-        public OgrenciController(DataContext context)
-        {
+        public OgretmenController(DataContext context) {
             _context = context;
         }
 
         public async Task<IActionResult> Index() {
-            return View(await _context.Ogrenciler.ToListAsync());
+            return View(await _context.Ogretmenler.ToListAsync());
         }
 
+        [HttpGet]
         public IActionResult Create() {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Ogrenci model) {
-            _context.Ogrenciler.Add(model);
+        public async Task<IActionResult> Create(Ogretmen model) {
+            _context.Ogretmenler.Add(model);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -33,20 +33,20 @@ namespace efCoreApp.Controllers {
                 return NotFound();
             }
 
-            var ogr = await _context.Ogrenciler.FindAsync(id);
+            var ogretmen = await _context.Ogretmenler.FindAsync(id);
             // var ogr = await _context.Ogrenciler.FirstOrDefaultAsync(ogrenci => ogrenci.OgrenciId == id);
 
-            if (ogr == null) {
+            if (ogretmen == null) {
                 return NotFound();
             }
 
-            return View(ogr);
+            return View(ogretmen);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Ogrenci model) {
-            if (id != model.OgrenciId) {
+        public async Task<IActionResult> Edit(int id, Ogretmen model) {
+            if (id != model.OgretmenId) {
                 return NotFound();
             }
 
@@ -58,7 +58,7 @@ namespace efCoreApp.Controllers {
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Ogrenciler.Any(o => o.OgrenciId == model.OgrenciId)) {
+                    if (!_context.Ogretmenler.Any(o => o.OgretmenId == model.OgretmenId)) {
                         return NotFound();
                     } else {
                         throw;
@@ -77,24 +77,24 @@ namespace efCoreApp.Controllers {
                 return NotFound();
             }
 
-            var ogrenci = await _context.Ogrenciler.Include(o => o.KursKayitlari).ThenInclude(o => o.Kurs).FirstOrDefaultAsync(o => o.OgrenciId == id);
+            var ogretmen = await _context.Ogretmenler.Include(o => o.Kurslar).FirstOrDefaultAsync(o => o.OgretmenId == id);
 
-            if (ogrenci == null) {
+            if (ogretmen == null) {
                 return NotFound();
             }
 
-            return View(ogrenci);
+            return View(ogretmen);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete([FromForm]int id) {
-            var ogrenci = await _context.Ogrenciler.FindAsync(id);
+            var ogretmen = await _context.Ogretmenler.FindAsync(id);
 
-            if (ogrenci == null) {
+            if (ogretmen == null) {
                 return NotFound();
             }
 
-            _context.Ogrenciler.Remove(ogrenci);
+            _context.Ogretmenler.Remove(ogretmen);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");

@@ -1,5 +1,9 @@
 @model IEnumerable<Ogrenci>
 
+@{
+    ViewData["Title"] = "Ogrenciler";
+}
+
 <h2>Ogrenci Listesi</h2>
 
 <a href="/Ogrenci/Create" class="btn btn-primary">Ogrenci Ekle</a>
@@ -21,7 +25,7 @@
     </thead>
 
     <tbody>
-        @foreach (var item in Model) {
+        @foreach (var item in @Model) {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.OgrenciId)</td>
 
@@ -30,9 +34,9 @@
                 <td>@Html.DisplayFor(modelItem => item.OgrenciSoyad)</td>
 
                 <td>
-                    <a asp-controller="Ogrenci" asp-action="Edit" asp-route-id="@item.OgrenciId" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="Edit" asp-route-id="@item.OgrenciId" class="btn btn-sm btn-primary">Edit</a>
 
-                    <a href="" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.OgrenciId" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
         }
